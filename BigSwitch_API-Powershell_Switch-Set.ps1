@@ -1,3 +1,12 @@
+$lower=1
+$upper=32
+$ports=($lower..$upper)
+$switchlist = @( 
+("ROWA-RACK2-S2", "spine", "54:bf:64:ae:7d:c0",""), 
+("ROWA-RACK2-L1", "leaf", "54:bf:64:ae:95:c0","ROWA-RACK2") 
+)
+
+
 function Set-BCFSwitch([string]$switch_name,[string]$switch_role,[string]$switch_mac,[string]$leaf_group)
 {
     if ($switch_role -eq "spine")
@@ -87,4 +96,17 @@ function Set-BCFSwitch([string]$switch_name,[string]$switch_role,[string]$switch
         write-host "**FAIL, statuscode $($result1.StatusCode) returned successfully" -ForegroundColor Yellow
         return
     }
+}
+
+
+#PROVISION SWITCHES
+foreach($value in $switchlist)
+{
+  $switch_name=$value[0]
+  $switch_role=$value[1]
+  $switch_mac=$value[2]
+  $leaf_group=$value[3]
+  $fullname=$switch_name
+  Write-Host "*Provisioning Switch $switch_name" -ForegroundColor White
+  Set-BCFSwitch -switch_name $switch_name -switch_role $switch_role -switch_mac $switch_mac -leaf_group $leaf_group
 }
