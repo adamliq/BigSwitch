@@ -1,3 +1,11 @@
+#BigSwitch Credentials
+$user = "admin"
+$pass= "Password1!"
+#BigSwitch IP
+$IP="xxx.xxx.xxx.xxx"
+$global:token = $null
+
+
 function Get-BCFSession([string]$user,[string]$pass,[string]$ip)
 {
     #LOGON TO BCF
@@ -16,3 +24,8 @@ function Get-BCFSession([string]$user,[string]$pass,[string]$ip)
         Write-Host "**Logon failure" -ForegroundColor Red
     }
 }
+
+
+
+Write-Host "*Obtaining BCF session token" -ForegroundColor White
+Get-BCFSession -user $user -pass $pass -ip $ip
