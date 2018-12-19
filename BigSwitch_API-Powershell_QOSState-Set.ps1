@@ -1,3 +1,9 @@
+$QOS_State="true"
+
+
+
+
+
 Function Set-BCFQOS([string]$QOS_State)
 {
     $params2=@{"enable"=$QOS_State} |convertto-json -compress
@@ -32,3 +38,11 @@ Function Set-BCFQOS([string]$QOS_State)
         return
     }
 }
+
+
+
+
+#PROVISION QOS STATE
+Write-Host "!Provisioning QOS" -ForegroundColor White
+Write-Host "*Provisioning QOS state to _ $QOS_State" -ForegroundColor White
+Set-BCFQOS -QOS_State $QOS_State
