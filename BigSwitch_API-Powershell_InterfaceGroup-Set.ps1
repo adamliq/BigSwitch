@@ -1,3 +1,11 @@
+$interfacegrouplist=@( 
+("Core-Leaf", "inter-pod", "inter-pod","false","false"), 
+("Core-Leaf2", "inter-pod", "inter-pod","false","false")
+)
+
+
+
+
 Function Set-BCFInterfaceGroup([string]$interfacegroup_name,[string]$interfacegroup_mode,[string]$interfacegroup_backupmode,[string]$interfacegroup_shutdown,[string]$interfacegroup_preempt)
 {
     #Conduct Action on BCF Using token
@@ -37,4 +45,18 @@ Function Set-BCFInterfaceGroup([string]$interfacegroup_name,[string]$interfacegr
         write-host "**FAIL, statuscode $($result1.StatusCode) returned successfully" -ForegroundColor Yellow
         return
     }
+}
+
+
+#PROVISION INTERFACE GROUP
+foreach($interfacegroup in $interfacegrouplist)
+{
+  $interfacegroup_name=$interfacegroup[0]
+  $interfacegroup_mode=$interfacegroup[1]
+  $interfacegroup_backupmode=$interfacegroup[2]
+  $interfacegroup_shutdown=$interfacegroup[3]
+  $interfacegroup_preempt=$interfacegroup[4]
+  $fullname= $interfacegroup_name
+  Write-Host "*Provisioning Interface Group $interfacegroup_name" -ForegroundColor White
+  Set-BCFInterfaceGroup -interfacegroup_name $interfacegroup_name -interfacegroup_mode $interfacegroup_mode -interfacegroup_backupmode $interfacegroup_backupmode -interfacegroup_shutdown $interfacegroup_shutdown -interfacegroup_preempt $interfacegroup_preempt
 }
