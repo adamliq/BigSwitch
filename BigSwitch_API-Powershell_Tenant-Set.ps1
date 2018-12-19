@@ -1,3 +1,6 @@
+$tenantlist="test"
+
+
 function Set-BCFTenant([string]$tenant)
 {
     #Conduct Action on BCF Using token
@@ -28,4 +31,11 @@ function Set-BCFTenant([string]$tenant)
         write-host "**FAIL, statuscode $($result1.StatusCode) returned successfully" -ForegroundColor Yellow
         return
     }
+}
+
+foreach($tenant in $tenantlist)
+{
+Write-Host "*Provisioning Tenant $tenant" -ForegroundColor White
+  $fullname=$tenant
+    Set-BCFTenant -tenant $tenant
 }
