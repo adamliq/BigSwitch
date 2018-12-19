@@ -1,3 +1,7 @@
+#required function to ignore certificate error
+#Sets tls protocol
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::TLS12
+
 function Ignore-SSLCertificates
 {
     $Provider = New-Object Microsoft.CSharp.CSharpCodeProvider
@@ -24,3 +28,5 @@ function Ignore-SSLCertificates
     $TrustAll = $TAAssembly.CreateInstance("Local.ToolkitExtensions.Net.CertificatePolicy.TrustAll")
     [System.Net.ServicePointManager]::CertificatePolicy = $TrustAll
 }
+
+Ignore-SSLCertificates
