@@ -1,3 +1,7 @@
+$QOS_PFC_State="true"
+
+
+
 Function Set-BCFQOS_PFC([string]$QOS_PFC_State)
 {
     $params2=@{"active"=$QOS_PFC_State} |convertto-json -compress
@@ -32,3 +36,9 @@ Function Set-BCFQOS_PFC([string]$QOS_PFC_State)
         return
     }
 }
+
+
+
+#PROVISION QOS_PFC STATE
+Write-Host "*Provisioning QOS_PFC state to _ $QOS_PFC_State" -ForegroundColor White
+Set-BCFQOS_PFC -QOS_PFC_State $QOS_PFC_State
