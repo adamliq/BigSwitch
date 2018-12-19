@@ -1,3 +1,9 @@
+$segmentinterfacetaggedlist=@( 
+("test", "VLAN_t1", "ROWA-RACK1-L1","ethernet19","99"),
+("test", "VLAN_t1", "ROWA-RACK1-L1","ethernet20","99")
+)
+
+
 Function Set-BCFSegmenttoInterfaceTagged([string]$tenant,[string]$segment,[string]$switch,[string]$interface,[string]$vlan)
 {
     #Conduct Action on BCF Using token
@@ -34,4 +40,19 @@ Function Set-BCFSegmenttoInterfaceTagged([string]$tenant,[string]$segment,[strin
         write-host "**FAIL, statuscode $($result1.StatusCode) returned successfully" -ForegroundColor Yellow
         return
     }
+}
+
+
+
+#PROVISION SEGMENT TO INTERFACE TAGGED
+foreach($segmentinterface in $segmentinterfacetaggedlist)
+{
+  $segmentinterface_tenant=$segmentinterface[0]
+  $segmentinterface_segment=$segmentinterface[1]
+  $segmentinterface_switch=$segmentinterface[2]
+  $segmentinterface_interface=$segmentinterface[3]
+  $segmentinterface_vlan=$segmentinterface[4]
+    $fullname="segment $segmentinterface_segment to interface $segmentinterface_interface with vlan $segmentinterface_vlan"
+  Write-Host "*Provisioning segment $segmentinterface_segment to interface $segmentinterface_interface with vlan $segmentinterface_vlan" -ForegroundColor White
+  Set-BCFSegmenttoInterfaceTagged -tenant $segmentinterface_tenant -segment $segmentinterface_segment -switch $segmentinterface_switch -interface $segmentinterface_interface -vlan $segmentinterface_vlan
 }
