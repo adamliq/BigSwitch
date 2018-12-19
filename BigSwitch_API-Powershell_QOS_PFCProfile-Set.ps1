@@ -1,3 +1,9 @@
+$QOSPFCProfile=@( 
+"test", "25", "1","1","1","75","1"
+)
+
+
+
 Function Set-BCFQOS_PFC_Profile([string]$QOS_PFC_Profile_name,[string]$QOS_PFC_class0_Percentage,[string]$QOS_PFC_class1_Percentage,[string]$QOS_PFC_class2_Percentage,[string]$QOS_PFC_class3_Percentage,[string]$QOS_PFC_classpfc_Percentage,[string]$QOS_PFC_classspan_Percentage)
 {
     $params2=@{
@@ -39,3 +45,17 @@ Function Set-BCFQOS_PFC_Profile([string]$QOS_PFC_Profile_name,[string]$QOS_PFC_c
         return
     }
 }
+
+
+
+#PROVISION QOS_PFC Profile
+$QOS_PFC_Profile_name=$QOSPFCProfile[0]
+$QOS_PFC_class0_Percentage=$QOSPFCProfile[1]
+$QOS_PFC_class1_Percentage=$QOSPFCProfile[2]
+$QOS_PFC_class2_Percentage=$QOSPFCProfile[3]
+$QOS_PFC_class3_Percentage=$QOSPFCProfile[4]
+$QOS_PFC_classpfc_Percentage=$QOSPFCProfile[5]
+$QOS_PFC_classspan_Percentage=$QOSPFCProfile[6]
+$fullname=$QOS_PFC_Profile_name
+Write-Host "*Provisioning QOS_PFC profile _ $QOS_PFC_Profile_name" -ForegroundColor White
+Set-BCFQOS_PFC_Profile -QOS_PFC_Profile_name $QOS_PFC_Profile_name -QOS_PFC_class0_Percentage $QOS_PFC_class0_Percentage -QOS_PFC_class1_Percentage $QOS_PFC_class1_Percentage -QOS_PFC_class2_Percentage $QOS_PFC_class2_Percentage -QOS_PFC_class3_Percentage $QOS_PFC_class3_Percentage -QOS_PFC_classpfc_Percentage $QOS_PFC_classpfc_Percentage -QOS_PFC_classspan_Percentage $QOS_PFC_classspan_Percentage
