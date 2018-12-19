@@ -1,3 +1,9 @@
+$interfacedescriptionlist=@( 
+("ROWA-RACK1-L1","ethernet19","test"),
+("ROWA-RACK1-L1","ethernet20","test2")
+)
+
+
 Function Set-BCFInterfaceDescription([string]$switch_name,[string]$interface,[string]$description)
 {
     #Conduct Action on BCF Using token
@@ -33,4 +39,15 @@ Function Set-BCFInterfaceDescription([string]$switch_name,[string]$interface,[st
         write-host "**FAIL, statuscode $($result1.StatusCode) returned successfully" -ForegroundColor Yellow
         return
     }
+}
+
+
+#PROVISION INTERFACE DESCRIPTION
+foreach($interfacedescription in $interfacedescriptionlist)
+{
+  $interfacedescription_switch=$interfacedescription[0]
+  $interfacedescription_interface=$interfacedescription[1]
+  $interfacedescription_description=$interfacedescription[2]
+  Write-Host "*Provisioning switch_ $interfacedescription_switch :Interface_ $interfacedescription_interface with description $interfacedescription_description" -ForegroundColor White
+  Set-BCFInterfaceDescription -switch_name $interfacedescription_switch -interface $interfacedescription_interface -description $interfacedescription_description
 }
