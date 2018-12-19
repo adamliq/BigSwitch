@@ -1,3 +1,6 @@
+$segmentlist=@("VLAN_t1","VLAN_t2")
+
+
 function Set-BCFSegment([string]$tenant,[string]$segment)
 {
     #Conduct Action on BCF Using token
@@ -30,3 +33,10 @@ function Set-BCFSegment([string]$tenant,[string]$segment)
         return
     }
 }
+
+foreach($segment in $segmentlist)
+    {
+      $fullname=$segment
+        Write-Host "*Provisioning Segment $segment" -ForegroundColor White
+        Set-BCFSegment -tenant $tenant -segment $segment
+    }
